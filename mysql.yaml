@@ -1,21 +1,28 @@
 - name: MySQL configuration
   hosts: mysql
   become: yes
+  vars:
+    mysql_root_password: ExpenseApp@1
+    login_host: mysql.ukom81s.online
   tasks:
-  - name: install boto3 and botocore
-    ansible.builtin.pip: 
-      name:
-      - boto3
-      - botocore
-      executable: pip3.9
-
   - name: Installing MySQL server
     ansible.builtin.package:
-      name: mysql
+      name: mysql-server
       state: present
 
   - name: Enable the service
     ansible.builtin.service:
-      name: mysql
+      name: mysql-server
       state: started
       enabled: yes
+  
+  - name: connect mysql server
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      login_host: "{{ login_host }}"
+    register: mysql_info
+
+  - name: print mysql info
+    ansible.builtin.debug:
+      msg: "{{ mysql_info }}"
