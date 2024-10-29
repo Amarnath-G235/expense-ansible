@@ -8,14 +8,14 @@
       - boto3
       - botocore
       executable: pip3.9
-      
+
   - name: Installing MySQL server
     ansible.builtin.package:
-      name: mysql-server
+      name: mysql
       state: present
 
   - name: Enable the service
     ansible.builtin.service:
-      name: mysql-server
+      name: mysql
       state: started
       enabled: yes
