@@ -5,6 +5,12 @@
     mysql_root_password: ExpenseApp@1
     login_host: mysql.ukom81s.online
   tasks:
+  - name: install PyMySQL dependency for mysql
+    ansible.builtin.pip: 
+      name:
+      - PyMySQL
+      executable: pip3.9
+      
   - name: Installing MySQL server
     ansible.builtin.package:
       name: mysql-server
