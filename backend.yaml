@@ -17,7 +17,7 @@
       state: present
     loop:
     - nodejs
-    - nysql
+    - mysql
   
   - name: Create expense user
     ansible.builtin.user:
@@ -61,5 +61,5 @@
       login_password: "{{ mysql_root_password }}"
       login_host: "{{ login_host }}"
       target: /app/schema/backend.sql
-      state: import
+      state: dump
       name: all
